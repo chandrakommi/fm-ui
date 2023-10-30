@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { signUpUser } from '../../API/authActions'
-
+import { signUpUser } from '../../redux/actionCreators/authActionCreator'
+import { useDispatch } from 'react-redux'
 const Register = () => {
   const [user, setUser] = useState({
     name: '',
@@ -9,6 +9,7 @@ const Register = () => {
     confirmPassword: '',
   })
 
+  const dispatch = useDispatch()
   const handleInputChange = event => {
     const { name, value } = event.target
     setUser(prevState => {
@@ -18,7 +19,8 @@ const Register = () => {
 
   const handleFormSubmit = event => {
     event.preventDefault()
-    signUpUser(user)
+    const { name, email, password } = user
+    dispatch(signUpUser(email, name, password))
   }
   return (
     <>

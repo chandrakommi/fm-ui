@@ -1,9 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 
 import { HomeHeader } from './Components/Home'
-import { Register } from './Components/Auth'
 import { Homepage } from './Pages/Home'
-import { LoginPage } from './Pages/Auth'
+import { LoginPage, RegisterPage } from './Pages/Auth'
 
 const App = () => {
   return (
@@ -11,7 +10,7 @@ const App = () => {
       <HomeHeader />
       <Routes>
         <Route path='/' element={<Homepage />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
       </Routes>
     </>

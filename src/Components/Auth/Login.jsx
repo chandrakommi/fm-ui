@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { loginUser } from '../../API/authActions'
-
+import { useDispatch } from 'react-redux'
+import { signInUser } from '../../redux/actionCreators/authActionCreator'
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' })
-
+  const dispatch = useDispatch()
   const handleInputChange = event => {
     const { name, value } = event.target
     setUser(prevState => {
@@ -14,7 +14,8 @@ const Login = () => {
   const handleFormSubmit = event => {
     event.preventDefault()
     const { email, password } = user
-    loginUser(email, password)
+    // diaptch()
+    dispatch(signInUser(email, password))
   }
   return (
     <>
