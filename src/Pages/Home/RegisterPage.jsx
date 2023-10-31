@@ -19,6 +19,7 @@ const RegisterPage = () => {
     if (!registered) return
     navigate('/dashboard')
   }, [registered])
+  
   const handleInputChange = event => {
     const { name, value } = event.target
     setUser(prevState => {

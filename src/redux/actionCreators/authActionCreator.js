@@ -21,7 +21,7 @@ const signInUser = (email, password, setIsLoggedIn) => dispatch => {
     .signInWithEmailAndPassword(email, password)
     .then(profile => {
       const { uid, displayName, email } = profile.user
-      dispatch(loginUser({ uid: uid, name: displayName, email: email }))
+      dispatch(loginUser({ uid: uid, displayName: displayName, email: email }))
       setIsLoggedIn(true)
     })
     .catch(err => console.log(err))
@@ -46,7 +46,7 @@ const signUpUser = (email, name, password, setRegistered) => async dispatch => {
         dispatch(
           loginUser({
             uid: uid,
-            name: displayName,
+            displayName: displayName,
             email: email,
           }),
         )
@@ -64,4 +64,18 @@ const signOutUser = () => dispatch => {
   dispatch(logoutUser())
 }
 
-export { signUpUser, signInUser, signOutUser }
+const checkUserSignedIn = () => dispatch => {
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      dispatch(
+        loginUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+        }),
+      )
+    }
+  })
+}
+
+export { checkUserSignedIn, signUpUser, signInUser, signOutUser }
