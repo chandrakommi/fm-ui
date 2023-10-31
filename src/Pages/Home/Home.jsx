@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
-const HomeHeader = () => {
+const Home = () => {
   return (
     <>
       <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
@@ -20,7 +20,10 @@ const HomeHeader = () => {
           </li>
         </ul>
       </nav>
+      <Outlet />
     </>
   )
 }
-export default HomeHeader
+
+export default Home
+

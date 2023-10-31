@@ -33,7 +33,7 @@ const error_codes_messages = {
   'auth/invalid-email': 'The email address is badly formatted.',
 }
 
-const signUpUser = (email, name, password) => async dispatch => {
+const signUpUser = (email, name, password, setRegistered) => async dispatch => {
   try {
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -49,6 +49,7 @@ const signUpUser = (email, name, password) => async dispatch => {
             email: email,
           }),
         )
+        setRegistered(true)
       })
       .catch(error => {
         alert(error_codes_messages[error.code] || error)
