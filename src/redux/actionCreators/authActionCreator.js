@@ -1,5 +1,6 @@
 import { auth } from '../../API/firebase'
 import { actionTypes } from '../actionTypes/authActionTypes'
+
 const loginUser = payload => {
   return {
     type: actionTypes.SIGN_IN,
@@ -20,7 +21,7 @@ const signInUser = (email, password) => dispatch => {
     .signInWithEmailAndPassword(email, password)
     .then(profile => {
       const { uid, displayName, email } = profile.user
-      dispatch(loginUser({ uid: uid, name: displayName || '', email: email }))
+      dispatch(loginUser({ uid: uid, name: displayName, email: email }))
     })
     .catch(err => console.log(err))
 }
@@ -36,20 +37,22 @@ const signUpUser = (email, name, password) => async dispatch => {
   try {
     auth
       .createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        auth.currentUser.updateProfile({ displayName: name })
+      })
       .then(() => {
-        const currentUser = auth.currentUser
-        currentUser.updateProfile({ displayName: name })
+        const { uid, displayName, email } = auth.currentUser
         dispatch(
           loginUser({
-            uid: currentUser.uid,
-            name: currentUser.displayName,
-            email: currentUser.email,
+            uid: uid,
+            name: displayName,
+            email: email,
           }),
         )
       })
-      .catch(error =>
-        alert(error_codes_messages[error.code] || 'Error occured'),
-      )
+      .catch(error => {
+        alert(error_codes_messages[error.code] || error)
+      })
   } catch (error) {
     console.error('Sign-up error:', error)
   }
