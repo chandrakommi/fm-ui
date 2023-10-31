@@ -16,12 +16,13 @@ const logoutUser = () => {
 
 /** Action Creator*/
 
-const signInUser = (email, password) => dispatch => {
+const signInUser = (email, password, setIsLoggedIn) => dispatch => {
   auth
     .signInWithEmailAndPassword(email, password)
     .then(profile => {
       const { uid, displayName, email } = profile.user
       dispatch(loginUser({ uid: uid, name: displayName, email: email }))
+      setIsLoggedIn(true)
     })
     .catch(err => console.log(err))
 }

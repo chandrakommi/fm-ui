@@ -16,8 +16,8 @@ const RegisterPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('success', registered)
-    if (registered) navigate('/dashboard')
+    if (!registered) return
+    navigate('/dashboard')
   }, [registered])
   const handleInputChange = event => {
     const { name, value } = event.target

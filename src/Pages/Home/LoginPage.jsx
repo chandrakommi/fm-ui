@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { signInUser } from '../../redux/actionCreators/authActionCreator'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: '', password: '' })
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!isLoggedIn) return
+    navigate('/dashboard')
+  }, [isLoggedIn])
+
   const handleInputChange = event => {
     const { name, value } = event.target
     setUser(prevState => {
@@ -16,15 +26,13 @@ const LoginPage = () => {
     event.preventDefault()
     const { email, password } = user
     if (!email || !password) return alert('Please fill in the fields')
-    dispatch(signInUser(email, password))
+    dispatch(signInUser(email, password, setIsLoggedIn))
   }
   return (
     <>
       <div className='row d-flex justify-content-center mt-5'>
         <div className='card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 shadow-sm '>
           <div className='m-0 m-sm-4 '>
-            {/* <Login /> */}
-
             <form className='w-100' onSubmit={handleFormSubmit}>
               <div className='mb-3'>
                 <label htmlFor='email' className=' form-label '>
