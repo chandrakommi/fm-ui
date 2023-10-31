@@ -19,7 +19,11 @@ const Register = () => {
 
   const handleFormSubmit = event => {
     event.preventDefault()
-    const { name, email, password } = user
+    const { name, email, password, confirmPassword } = user
+    if (!name || !email || !password || !confirmPassword)
+      return alert('Please fill in all the fields')
+    if (password !== confirmPassword)
+      return alert('Confirm password does not match with password')
     dispatch(signUpUser(email, name, password))
   }
   return (

@@ -1,8 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import { HomeHeader } from './Components/Home'
-import { Homepage } from './Pages/Home'
-import { LoginPage, RegisterPage } from './Pages/Auth'
+import { Homepage, LoginPage, RegisterPage } from './Pages'
 
 const App = () => {
   return (

@@ -14,7 +14,7 @@ const Login = () => {
   const handleFormSubmit = event => {
     event.preventDefault()
     const { email, password } = user
-    // diaptch()
+    if (!email || !password) return alert('Please fill in the fields')
     dispatch(signInUser(email, password))
   }
   return (
